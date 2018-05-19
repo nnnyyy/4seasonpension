@@ -1,0 +1,45 @@
+#tour_outter {
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#tour_outter table.tour_info {
+    margin:0 auto;width: 1000px; height:auto;
+    border-spacing: 0px;
+}
+
+#tour_outter table.tour_info tr {
+    border:1px solid #c0c0c0;background-color:#e0e0e0;font-family:돋움;font-size:11px;padding:0px;
+}
+
+#tour_outter table.tour_info td {
+    border:1px solid #e0e0e0;background-color:#ffffff;text-align:center;font-family:tahoma;font-size:14px;padding:0px;
+}
+
+#tour_outter table.tour_info tr.tour_info_title {
+    height: 40px;
+}
+
+#tour_outter table.tour_info td.tour_info_title {
+    font-size: 17px;
+    text-align: left;
+    padding-left: 15px;
+    background-color: #ebebeb;
+    color: #373737;
+    font-weight: bold;
+}
+
+#tour_outter table.tour_info tr.tour_info_article {
+    height: 300px;
+}
+
+#tour_outter table.tour_info td.tour_info_article_left {
+    width: 400px;
+}
+
+#tour_outter table.tour_info td.tour_info_article_right {
+    padding: 30px;
+    line-height: 22px;
+}

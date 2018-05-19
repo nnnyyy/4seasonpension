@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>단양 천동 사계절 펜션 - 객실정보</title>
+    <% include ./partials/head %>
+</head>
+<style type="text/css">
+    .bx-wrapper .bx-pager {
+        bottom: -110px;
+    }
+
+    .bx-wrapper .bx-pager a {
+        border: solid #ccc 1px;
+        display: block;
+        margin: 0 5px;
+        padding: 3px;
+    }
+
+    .bx-wrapper .bx-pager a:hover,
+    .bx-wrapper .bx-pager a.active {
+        border: solid #5280DD 1px;
+    }
+
+    .bx-wrapper {
+        margin-bottom: 15px;
+    }
+
+    .bx-wrapper img {
+        margin: 0 0 0 0;
+        max-width: 100%;
+        display: block;
+    }
+</style>
+<body>
+<% include ./partials/header %>
+<script>
+    $(document).ready(function(){
+
+        $('#menu_sub_area').show();
+
+        $('.bxslider').bxSlider({
+            auto: true,
+            pager: true,
+            slideMargin: 0,
+            slideWidth: 900,
+            buildPager: function(slideIndex){
+                switch(slideIndex){
+                    case 0:
+                        return '<img src="/images/room/1/info1_thumb.jpg">';
+                    case 1:
+                        return '<img src="/images/room/1/info2_thumb.jpg">';
+                    case 2:
+                        return '<img src="/images/room/1/info3_thumb.jpg">';
+                    case 3:
+                        return '<img src="/images/room/1/info4_thumb.jpg">';
+                    case 4:
+                        return '<img src="/images/room/1/info5_thumb.jpg">';
+                }
+            }
+        });
+
+        var idx  = <%- room_num %>;
+
+        /* 메뉴 효과 재설정 */
+        var sub_menu_elements = $(".menu_sub_area_item");
+        sub_menu_elements.each(function(){
+            // 새로 이벤트를 정의하기 위해 Header 에 있는 기존 이벤트의 바인딩을 제거.
+            // 제거하지 않으면 이벤트가 두번 발생.
+            $(this).unbind('mouseout');
+            $(this).unbind('mouseover');
+
+            $(this).mouseover(function(){
+                $(this).addClass('menu_sub_area_item_selected');
+            })
+
+            $(this).mouseout(function(){
+                if( $(this).data('room_num') != idx ) {
+                    $(this).removeClass('menu_sub_area_item_selected');
+                }
+            })
+
+            $(this).click(function(e){
+                e.preventDefault();
+                window.location = "/rooms/" + $(this).data('room_num');
+            })
+        })
+
+        var jElem = '.menu_sub_area_item[data-room_num="'+idx+'"]'
+
+        $('input[data-value="btn_reserv"').mouseover(function() {
+            $(this).css('cursor', 'pointer');
+        });
+
+        $('input[data-value="btn_reserv"').mouseout(function() {
+            $(this).css('cursor', 'default');
+        });
+
+        $('input[data-value="btn_reserv"').click(function(e){
+            e.preventDefault();
+
+            window.location = "/reserv";
+        })
+
+        $('#menu_btn_2').addClass('menu_selected_fix');
+        $(jElem).addClass('menu_sub_area_item_selected');
+    });
+</script>
+<div id="wrapper">
+<div id="rooms_info_outer">
+    <div id="rooms_info_left">
+        <ul class="bxslider">
+            <li><img src="/images/room/1/info1.jpg"/> </li>
+            <li><img src="/images/room/1/info2.jpg"/> </li>
+            <li><img src="/images/room/1/info3.jpg"/> </li>
+            <li><img src="/images/room/1/info4.jpg"/> </li>
+            <li><img src="/images/room/1/info5.jpg"/> </li>
+        </ul>
+        <div style="font-size: 24px; margin-top:160px; text-align: left;">
+            객실 정보
+            <table style="text-align: center; width: 870px; border: 1px solid #dddddd; margin-top: 15px;" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="room_td_bg">객실명</td><td class="room_td_bg">평수</td><td class="room_td_bg">기준인원</td><td class="room_td_bg">최대인원</td><td class="room_td_bg">구비시설</td>
+                </tr>
+                <tr>
+                    <td class="room_tb_val_bg">행복실</td><td class="room_tb_val_bg">10평</td><td class="room_tb_val_bg">4명</td><td class="room_tb_val_bg">6명</td><td class="room_tb_val_bg">tv,냉장고,취사도구,드라이기,에어컨,탁자,화장대</td>
+                </tr>
+            </table>
+            <div style="color: #767676;font-size:12px;margin-top: 10px;"><div style="float:left;">기준인원 초과시</div><div style="float: left;font-size:12px; color:#ff7b3a" class='sub_text'>&nbsp;만원의 추가요금</div>이 있습니다.</div>
+        </div>
+        <div style="font-size: 24px; margin-top:35px; text-align: left;">
+            요금 정보
+            <table style="text-align: center; width: 870px; border: 1px solid #dddddd; margin-top: 15px;" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="room_td_bg">비수기 주중 요금</td><td class="room_td_bg">비수기 주말 요금</td><td class="room_td_bg">성수기</td>
+                </tr>
+                <tr>
+                    <td class="room_tb_val_bg">100,000원</td><td class="room_tb_val_bg">100,000원</td><td class="room_tb_val_bg">100,000원</td>
+                </tr>
+            </table>
+            <!--<div style="color: #767676;font-size:12px;margin-top: 10px; margin-bottom: 30px;"><div style="float:left;">성수기는</div><div style="float: left;font-size:12px; color:#ff7b3a; " class='sub_text' >&nbsp;7월 14일부터 8월 25일까지</div>입니다.</div>-->
+			<br>
+        </div>
+    </div>
+    <div id="rooms_info_right">
+        <div style="width: 100%; height: 267px; background-color: #ebebeb; position: relative;">
+            <div style="position: absolute; left: 36px; top: 38px; color: #000000; font-size:32px;font-weight: bold"><%if( room_num==1){%>
+                    행복실
+                <%}
+                else if( room_num == 2 ) {%>
+                    기쁨실
+                <%}
+                else {%>
+                    환희실
+                <%}%></div>
+            <div style="position: absolute; left: 36px; top: 84px; color: #767676; font-size:12px;">소백산 전망의 편안한 10평형 객실</div>
+            <div style="position: absolute; left: 36px; top: 150px; color: #959595;"><input data-value="btn_reserv" style="width: 220px; height:60px; background-color: #ff7b3a; border: 0px;font-size:24px; font-weight: bold;" type="button" value="예약하기"/></div>
+        </div>
+        <div style="width: 100%; height: 60px; background-color: #cccccc; position: relative; border-bottom: 1px solid #ebebeb;">
+            <div style="width: 120px; float: left;  color: #373737; font-size: 14px; text-align: left; margin-top:25px; margin-left: 25px;" >비수기 주중 요금</div>
+            <div style="width: 155px; float: right;  color: #373737; font-size: 24px; text-align: left; margin-top:15px; font-weight: bold; font-family: Tahoma;" >100,000</div>
+        </div>
+        <div style="width: 100%; height: 60px; background-color: #cccccc; position: relative; border-bottom: 1px solid #ebebeb; color: #373737; font-size: 14px;">
+            <div style="width: 120px; float: left;  color: #373737; font-size: 14px; text-align: left; margin-top:25px; margin-left: 25px;" >비수기 주말 요금</div>
+            <div style="width: 155px; float: right;  color: #373737; font-size: 24px; text-align: left; margin-top:15px; font-weight: bold; font-family: Tahoma;" >100,000</div>
+        </div>
+        <div style="width: 100%; height: 60px; background-color: #cccccc; position: relative; border-bottom: 1px solid #ebebeb; color: #373737; font-size: 14px;">
+            <div style="width: 120px; float: left;  color: #373737; font-size: 14px; text-align: left; margin-top:25px; margin-left: 25px;" >성수기</div>
+            <div style="width: 155px; float: right;  color: #373737; font-size: 24px; text-align: left; margin-top:15px; font-weight: bold; font-family: Tahoma;" >100,000</div>
+        </div>
+        <div style="width: 300px;  height: 149px;  background-color: #373737;  border-bottom: 1px solid #4f4f4f; position:relative;  margin: 0px;">
+            <div style="position: absolute; left: 36px; top: 38px; color: #ffffff;">전화번호</div>
+            <div style="position: absolute; left: 36px; top: 74px; color: #ff7b3a; font-size:24px; font-family: Tahoma; font-weight: bold">010-4065-7899</div>
+            <div style="position: absolute; left: 36px; top: 103px; color: #959595; font-size:14px; font-family: Tahoma; font-weight: normal">AM 9:00 ~ PM 9:00</div>
+            <div style="position: absolute; left: 226px; top: 30px;" ><img src="/images/img_tel_icon.png"/></div>
+        </div>
+        <div style="width: 300px;  height: 149px;  background-color: #373737;  border-bottom: 1px solid #4f4f4f; position:relative;  margin: 0px;">
+            <div style="position: absolute; left: 36px; top: 38px; color: #ffffff;">입금계좌</div>
+            <div style="position: absolute; left: 36px; top: 74px; color: #ff7b3a; font-size:24px; font-family: Tahoma; font-weight: bold">010-4065-7899-09</div>
+            <div style="position: absolute; left: 36px; top: 103px; color: #959595; font-size:14px; font-family: Tahoma; font-weight: normal"><div style="color: #ff7b3a; float:left;">농협</div>&nbsp;예금주 : 이재영</div>
+            <div style="position: absolute; left: 226px; top: 30px;" ><img src="/images/img_money_icon.png"/></div>
+        </div>
+    </div>
+</div>
+</div>
+
+<% include ./partials/footer %>
+</body>
+</html>

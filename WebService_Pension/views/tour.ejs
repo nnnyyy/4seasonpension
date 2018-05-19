@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>단양 천동 사계절 펜션 - 오시는 길</title>
+    <% include ./partials/head %>
+    <link rel='stylesheet' href='/stylesheets/tour.css' />
+    <script src="/js/tour_article.js"></script>
+</head>
+<body>
+<% include ./partials/header %>
+<script>
+    $(document).ready(function(){
+        $('#menu_btn_4').addClass('menu_selected_fix');
+
+        var idx  = <%- info_num %>;
+
+        var sub_menu_elements_tour = $(".menu_sub_area_item_tour");
+
+        sub_menu_elements_tour.each(function(){
+
+            // 새로 이벤트를 정의하기 위해 Header 에 있는 기존 이벤트의 바인딩을 제거.
+            // 제거하지 않으면 이벤트가 두번 발생.
+            $(this).unbind('mouseout');
+            $(this).unbind('mouseover');
+
+            $(this).mouseover(function(){
+                $(this).addClass('menu_sub_area_item_selected');
+            })
+
+            $(this).mouseout(function(){
+                if( $(this).data('info_page') != idx ) {
+                    $(this).removeClass('menu_sub_area_item_selected');
+                }
+            })
+
+            $(this).click(function(e){
+                e.preventDefault();
+                window.location = "/tour/" + $(this).data('info_page');
+            })
+        })
+
+        var jElem = '.menu_sub_area_item_tour[data-info_page="'+idx+'"]'
+        $(jElem).addClass('menu_sub_area_item_selected');
+
+        $('#menu_sub_area_tour').show();
+    })
+</script>
+<div id="wrapper">
+    <div id="tour_outter">
+        <br/>
+        <!--
+        <table class="tour_info">
+            <tr class="tour_info_title">
+                <td colspan="2" class="tour_info_title">
+                    1
+                </td>
+            </tr>
+            <tr class="tour_info_article">
+                <td class="tour_info_article_left"><img src=""/>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+        -->
+        <% if(info_num == 1) {%>
+        <script>tour_article('도담삼봉','/images/tour/dodam.jpg','단양팔경의 하나로, 남한강 상류 한가운데에 3개의 기암으로 이루어진 섬을 말한다. 푸른 강물 가운데 우뚝 선 기암괴석이 모두 남쪽으로 비스듬히 기울어져 있는데, 가운데 봉우리가 가장 높고, 큰 봉우리 허리쯤에 수각(水閣)이 있어 절경을 한눈에 바라볼 수 있는 망루 구실을 한다. 조선왕조의 개국 공신인 정도전(鄭道傳)이 이곳 중앙봉에 정자를 짓고 이따금 찾아와서 경치를 구경하고 풍월을 읊었다고 하며, 자신의 호를 삼봉이라고 한 것도 도담삼봉에 연유한 것이라고 한다. 충주댐의 완성으로 약 1/3이 물에 잠기게 되었지만, 월악산국립공원에 이웃하여, 수상과 육상교통이 개발됨에 따라 더욱 각광을 받고 있다. 2008년 9월 9일 명승 제 44호로 지정되었다.');</script><br/>
+        <script>tour_article('다리안 계곡','/images/tour/darian.jpg','소백산국립공원 진입 관문에 위치한 다리안국민관광지는 단양시내에서 7.1km 떨어진 곳으로서 소백산 깊은 계곡에서 흘러나오는 깨끗한 물줄기가 다리안 관광지를 휘돌아 흐르며 깊은 골짜기에서 배어나오는 상큼한 공기는 찾는이의 마음을 상쾌하게 해주는 곳이다. 153,835㎡ 면적에 조성된 관광지내 시설로는 원두막 31개, 주차장 4개소, 야영장 7개소, 취사장 4개소를 비롯하여 객실 31실에 1,370명을 수용할수 있는 소백산 유스호스텔이 자리하고 있어 관광휴양지로서 더할 나위없이 좋은 곳이다. 용이 승천하였다는 전설을 간직한 다리안계곡을 주위로 3대동굴과, 소백산등이 있어 등산과 피서, 휴양을 겸한 관광지로서 좋은 곳이다.');</script><br/>
+        <script>tour_article('고수동굴','/images/tour/gosu.jpg','고수동굴은 단양군 단양읍 고수리에 있는 석회암 동굴이다. 약 4억 5천만년 동안 생성되어 온 석회암 자연동굴로서 면적은 18,210평, 현재 개방된 길이는 1.7 km, 입구 높이 50m, 폭 5m이다. 지하수가 많이 흘러들어 다양한 형태의 종유석과 석순이 잘 발달되어 있으며 지하궁전을 연상케 하는 장년기의 동굴 지형을 이루고 있다. 동굴의 특색은 지질학적으로 동굴의 생성원인을 밝혀주며 형성물의 특이한 배치와 석주, 호신상 등이 특이하다');</script><br/>
+        <script>tour_article('천동동굴','/images/tour/chundong.jpg','단양천동굴은 어두운 회색을 띤 석회암으로 이루어진 동굴로 총 길이는 200m이다. 지금으로부터 약 4억 5천만 년 전에 만들어 졌다. 동굴은 입구가 좁아 기어 들어가야 하며, 반달모양의 공간 안에는 고드름처럼 생긴 종유석과 동굴 바닥에서 돌출되어 올라온 석순, 그리고 종유석과 석순이 만나 기둥을 이룬 석주가 펼쳐져 있다. 세로로 땅속 깊이 뻗은 굴이 하나 있는데 이곳은 석순이 많다. 또한 맑은 지하수가 고여 있는 3개의 물 웅덩이 안에는 둥근 포도알처럼 생긴 포도상구상체가 있으며, 꽃쟁반이라 불리는 석회암으로 된 바위는 세계적으로 희귀한 생성물이다. 동굴 천장을 가득 메우고 있는 돌고드름과, 넓게 퍼져있는 돌주름, 그리고 가늘은 종유석들이 매우 정교하고 섬세하다.');</script><br/>
+        <script>tour_article('사인암','/images/tour/sainam.jpg','사인암은 대강면 사인암리에 위치한다. 높이는 약 50m이며 기암 아래는 남조천이 흐르며 소(沼)를 이루고 있어 아름다운 풍치를 더해주는 곳이다. 사인암이라는 이름의 유래는 고려 때 유학자인 역동(易東) 우탁(禹倬) 선생의 행적 때문에 지어졌다. 고려 시대 우탁이 임금을 보필하는 직책인 정 4품 "사인(舍人)"이라는 벼슬에 있을 당시 이곳에 머물렀다는 사연이 있어 조선 성종 때 단양 군수가 우탁 선생을 기리기 위해 이 바위를 사인암이라 지었다고 전해진다. 단양팔경에 속하며 2008년 9월 9일 명승 제47호로 지정되었다.');</script><br/>
+        <script>tour_article('온달동굴','/images/tour/ondal.jpg',
+                    "1979년 6월 18일 천연기념물 제261호로 지정되었다. 온달산성이 있는 성산 기슭 지하에서 약 4억 5,000만 년 전부터 생성되어 온 것으로 추정되며 굴과 지굴의 길이가 760m, 입구높이 약 2m이며, 면적은 34만 9485㎡이다.온달 장군이 이곳에서 수양을 했다는 전설로 이런 이름이 붙여졌다. 굴 입구로 얼음처럼 찬물이 흘러나오고, 굴 안에는 자연적인 석회암 종유석이 갖가지 기이한 모양을 하고 있으며, 부분적으로 지굴이 뚫려 있다.<1966년부터 학술조사가 시행되어 1975년 잠시 공개하였으나, 지리적 여건으로 폐쇄되었다가 대대적인 개발을 통해 1997년부터 다시 일반인에게 개방되었다. 1400여년의 세월에도 불구하고 원형이 거의 그대로 보존되어 있으며, 매년 10월 '온달문화축제'가 열린다.");</script><br/>
+        <% } else if( info_num == 2 ) { %>
+        <script>tour_article('패러글라이딩','/images/tour/gliding.jpg','새가 되어 날아가는 듯한 잊지 못할 추억.<br/> 사전 교육 없이도 비행 가능한 단양의 대표 레저.');</script><br/>
+        <script>tour_article('레프팅','/images/tour/rafting.jpg','고무보트를 타고 계곡의 급류를 헤쳐나가는 레포츠.');</script><br/>
+        <script>tour_article('ATV','/images/tour/atv.jpg','역동적이고 액티비티한 ATV 체험.<br/>단양 ATV를 체험할 수 있는 절호의 기회!');</script><br/>
+        <%}%>
+
+
+    </div>
+</div>
+<% include ./partials/footer %>
+</body>
+</html>

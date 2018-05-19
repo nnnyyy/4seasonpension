@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>단양 천동 사계절 펜션 - 메인</title>
+    <% include ./partials/head %>
+  </head>
+  <style type="text/css">
+    .bx-wrapper img {
+      margin: -14px 0 0 -41px;
+      background-color: red;
+      max-width: 100%;
+      display: block;
+    }
+  </style>
+  <script>
+    $(document).ready(function(){
+      $('.bxslider').bxSlider({
+        auto: true,
+        pager: false,
+        mode: 'fade',
+        slideMargin: 0,
+        slideWidth: 1920,
+        controls: true
+      });
+    });
+
+    $(document).ready(function(){
+
+      var images = ['/images/img_intro_room_info1.jpg', '/images/img_intro_room_info2.jpg'];
+      var idx = 0;
+      $('#intro_room_info_img').attr('src', images[idx]);
+
+      $('#intro_bottom_traffic').mouseover(function(){ $('#ibt_overlay').show(); $('#ibt_overlay').addClass('object_selected'); })
+      $('#intro_bottom_traffic').mouseout(function(){ $('#ibt_overlay').hide(); })
+      $('#ibt_overlay').click(function(e){ window.location = '/traffic'; })
+
+      $('#btn_intro_room_info_left').mouseover(function(){ $(this).addClass('object_selected'); })
+      $('#btn_intro_room_info_left').mouseout(function(){ $(this).removeClass('object_selected'); })
+      $('#btn_intro_room_info_right').mouseover(function(){ $(this).addClass('object_selected'); })
+      $('#btn_intro_room_info_right').mouseout(function(){ $(this).removeClass('object_selected'); })
+      $('#btn_intro_room_info_left').click(function(e){
+        $('#intro_room_info_img').fadeOut(500, function(){
+          idx = (--idx);
+          idx = (idx < 0) ? images.length - 1 : idx
+          $('#intro_room_info_img').attr('src', images[idx]);
+          $('#intro_room_info_img').fadeIn(500);
+        })
+      })
+
+      $('#btn_intro_room_info_right').click(function(e){
+        $('#intro_room_info_img').fadeOut(500, function(){
+          idx = (++idx) % images.length;
+          $('#intro_room_info_img').attr('src', images[idx]);
+          $('#intro_room_info_img').fadeIn(500);
+        })
+      })
+    })
+  </script>
+  <body>
+    <% include ./partials/header %>
+    <div id="wrapper">
+      <div id="intro">
+        <ul class="bxslider">
+          <li><img src="/images/hillside.jpg"/> </li>
+          <li><img src="/images/hillside2.jpg"/></li>
+          <li><img src="/images/hillside3.jpg"/></li>
+          <li><img src="/images/hillside4.jpg"/></li>
+        </ul>
+      </div>
+      <div id="intro_bottom">
+        <div id="intro_bottom_room_info">
+          <img id="intro_room_info_img" src="/images/img_intro_room_info1.jpg"/>
+          <div id="intro_bottom_room_info_desc">
+
+            <div style="margin: 23px 0; width: 513px; float:left">소백산 전망의 편안한 10평형 객실</div>
+            <div style="margin: 0 0; width: 87px; height: 100%; float:right; background-color: rgba(0,0,0,0.8);"><img id="btn_intro_room_info_left" src="/images/img_intro_room_info_left.png"/><img src="/images/img_intro_room_info_center.png"/><img id="btn_intro_room_info_right" src="/images/img_intro_room_info_right.png"/></div>
+
+          </div>
+        </div>
+        <div id="intro_bottom_traffic" class="test_yellow">
+          <div id="ibt_overlay">
+            <div style="position: absolute; text-align: center; width:300px; left: 0px; top: 115px; color: #ffffff; font-size: 20px;">오시는 길</div>
+            <div style="position: absolute; text-align: center; width:300px; left: 0px; top: 145px; color: #ffffff; font-size: 12px;">충북 단양군 단양읍 다리안로 604</div>
+            <div style="position: absolute; text-align: center; width:300px; left: 0px; top: 185px; color: #ffffff; font-size: 15px;">자세한 안내는 이곳을 클릭</div>
+          </div>
+          <img src="/images/img_intro_traffic.jpg"/>
+        </div>
+        <div id="intro_bottom_etc">
+          <div id="ibe_wrapper">
+            <div id="ibe_contents">
+              <div style="position: absolute; left: 36px; top: 38px; color: #ffffff;">전화번호</div>
+              <div style="position: absolute; left: 36px; top: 74px; color: #ff7b3a; font-size:24px; font-family: Tahoma; font-weight: bold">010-4065-7899</div>
+              <div style="position: absolute; left: 36px; top: 103px; color: #959595; font-size:14px; font-family: Tahoma; font-weight: normal">AM 9:00 ~ PM 9:00</div>
+              <div style="position: absolute; left: 226px; top: 30px;" ><img src="/images/img_tel_icon.png"/></div>
+            </div>
+          </div>
+          <div id="ibe_wrapper">
+            <div id="ibe_contents">
+              <div style="position: absolute; left: 36px; top: 38px; color: #ffffff;">입금계좌</div>
+              <div style="position: absolute; left: 36px; top: 74px; color: #ff7b3a; font-size:24px; font-family: Tahoma; font-weight: bold">010-4065-7899-09</div>
+              <div style="position: absolute; left: 36px; top: 103px; color: #959595; font-size:14px; font-family: Tahoma; font-weight: normal"><div style="color: #ff7b3a; float:left;">농협</div>&nbsp;예금주 : 이재영</div>
+              <div style="position: absolute; left: 226px; top: 30px;" ><img src="/images/img_money_icon.png"/></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% include ./partials/footer %>
+  </body>
+</html>

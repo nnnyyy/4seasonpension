@@ -1,0 +1,112 @@
+<script>
+    $(document).ready(function(){
+        var menu_btns = [];
+        menu_btns.push($('#menu_btn_1'));
+        menu_btns.push($('#menu_btn_2'));
+        menu_btns.push($('#menu_btn_3'));
+        menu_btns.push($('#menu_btn_4'));
+        menu_btns.push($('#menu_btn_5'));
+        var menu_redirect = [ '/', '/rooms/1', '/reserv', '/tour', '/traffic' ];
+
+        $.each(menu_btns, function(i,btn){
+            btn.mouseover(function(){
+                $(this).addClass('menu_selected');
+            })
+
+            btn.mouseout(function(){
+                $(this).removeClass('menu_selected');
+            })
+
+            btn.click(function(e){
+                e.preventDefault();
+                window.location = menu_redirect[i];
+            })
+        })
+
+        var sub_menu_elements = $(".menu_sub_area_item");
+
+        sub_menu_elements.each(function(){
+            $(this).mouseover(function(){
+                $(this).addClass('menu_sub_area_item_selected');
+            })
+
+            $(this).mouseout(function(){
+                $(this).removeClass('menu_sub_area_item_selected');
+            })
+
+            $(this).click(function(e){
+                e.preventDefault();
+                window.location = "/rooms/" + $(this).data('room_num');
+            })
+        })
+
+        var sub_menu_elements_tour = $(".menu_sub_area_item_tour");
+
+        sub_menu_elements_tour.each(function(){
+            $(this).mouseover(function(){
+                $(this).addClass('menu_sub_area_item_selected');
+            })
+
+            $(this).mouseout(function(){
+                $(this).removeClass('menu_sub_area_item_selected');
+            })
+
+            $(this).click(function(e){
+                e.preventDefault();
+                window.location = "/tour/" + $(this).data('info_page');
+            })
+        })
+
+        $('#menu_sub_area').hide();
+        $('#menu_sub_area_tour').hide();
+
+        $('body').prepend('<a href="#" class="back-to-top">Back to Top</a>');
+
+        var amountScrolled = 300;
+
+        $(window).scroll(function() {
+            if ( $(window).scrollTop() > amountScrolled ) {
+                $('a.back-to-top').fadeIn('slow');
+            } else {
+                $('a.back-to-top').fadeOut('slow');
+            }
+        });
+
+        $('a.back-to-top').click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 700);
+            return false;
+        });
+    })
+</script>
+<div id="wrapper">
+    <div id="header">
+        <div id="title_and_menu">
+            <a href="/"><img id="title_img" src="/images/img_title.jpg"/></a>
+            <div id="menu_area">
+                <ul>
+                    <li><div class="menu_height menu_padding font_menu" id="menu_btn_1">펜션 소개</div></li>
+                    <li><div class="menu_height menu_padding font_menu" id="menu_btn_2">객실 안내</div></li>
+                    <li><div class="menu_height menu_padding font_menu" id="menu_btn_3">객실 예약</div></li>
+                    <li><div class="menu_height menu_padding font_menu" id="menu_btn_4">관광 및 레저</div></li>
+                    <li><div class="menu_height menu_padding font_menu" id="menu_btn_5">오시는 길</div></li>
+                    <!--<li><div class="menu_height menu_padding"><img src="/images/facebook.jpg"/></div></li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper"><div id="menu_sub_area"><div id="menu_sub_area_inner">
+            <div class="menu_sub_area_item" style="position: absolute; left: 630px;" data-room_num="1">행복실</div>
+            <div class="menu_sub_area_item" style="position: absolute; left: 730px;" data-room_num="2">기쁨실</div>
+            <div class="menu_sub_area_item" style="position: absolute; left: 830px;" data-room_num="3">환희실</div>
+            </div>
+        </div>
+
+        <div id="menu_sub_area_tour"><div id="menu_sub_area_inner">
+                <div class="menu_sub_area_item_tour" style="position: absolute; left: 850px;" data-info_page="1">관광지</div>
+                <div class="menu_sub_area_item_tour" style="position: absolute; left: 950px;" data-info_page="2">레저</div>
+            </div>
+        </div>
+    </div>
+</div>

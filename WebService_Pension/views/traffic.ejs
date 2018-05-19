@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>단양 천동 사계절 펜션 - 오시는 길</title>
+    <% include ./partials/head %>
+</head>
+<body>
+<% include ./partials/header %>
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=YPynzetOdS39S21RDS5b"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#menu_btn_5').addClass('menu_selected_fix');
+    })
+</script>
+<div id="traffic">
+    <div id="map" heigt="500px;">
+        <script type="text/javascript">
+            var oSeoulCityPoint = new nhn.api.map.LatLng(36.9685266, 128.4203005);
+            var defaultLevel = 12;
+            var oMap = new nhn.api.map.Map(document.getElementById('map'), {
+                point : oSeoulCityPoint,
+                zoom : defaultLevel,
+                enableWheelZoom : true,
+                enableDragPan : true,
+                enableDblClickZoom : false,
+                mapMode : 0,
+                activateTrafficMap : true,
+                activateBicycleMap : false,
+                minMaxLevel : [ 8, 14 ],
+                size : new nhn.api.map.Size(1200, 600)
+            });
+            var oSlider = new nhn.api.map.ZoomControl();
+            oMap.addControl(oSlider);
+            oSlider.setPosition({
+                top : 10,
+                left : 10
+            });
+
+            var oSize = new nhn.api.map.Size(28, 37);
+            var oOffset = new nhn.api.map.Size(14, 37);
+            var oIcon = new nhn.api.map.Icon('http://static.naver.com/maps2/icons/pin_spot2.png', oSize, oOffset);
+            var oMarker = new nhn.api.map.Marker( oIcon, { point : oSeoulCityPoint, title : "단양 천동리 사계절 펜션"  });
+            oMarker.setPoint(oMap.getCenter());
+            oMap.addOverlay(oMarker);
+
+            var oMarkerLabel =  new nhn.api.map.MarkerLabel({
+                detectCoveredMarker : Boolean   // 겹쳐 있는 마커 위에 마우스 포인터를 올렸을 때
+                                                // 겹쳐 있는 마커에 대한 문구 표시 여부
+            });
+            oMap.addOverlay(oMarkerLabel);
+            oMarkerLabel.setVisible(true, oMarker);
+
+        </script>
+    </div>
+    <h1>주소 : 충청북도 단양군 단양읍 다리안로 604</h1><br/>
+    아래의 포털사이트(네이버, 다음) 지도에서 대중교통 및 승용차로 이동하는 경로를 확인할 수 있습니다.<br/><br/><br/>
+    <a href="http://map.naver.com/?dlevel=11&lat=36.9685266&lng=128.4203005&query=7Lap7LKt67aB64%2BEIOuLqOyWkeq1sCDri6jslpHsnY0g64uk66as7JWI66GcIDYwNA%3D%3D&type=ADDRESS&tab=1&enc=b64" target="_blank">네이버 지도에서 보기 (클릭)</a>&nbsp;&nbsp;&nbsp;
+    <a href="http://map.daum.net/?urlX=816198&urlY=966158&q=%EC%B6%A9%EB%B6%81+%EB%8B%A8%EC%96%91%EA%B5%B0+%EB%8B%A8%EC%96%91%EC%9D%8D+%EB%8B%A4%EB%A6%AC%EC%95%88%EB%A1%9C+604" target="_blank">다음 지도에서 보기 (클릭)</a>
+    <br/>
+    <br/>
+</div>
+<% include ./partials/footer %>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/head %>
+    <link rel='stylesheet' href='/stylesheets/calendar_admin.css' />
+    <script src="/js/calendar_admin.js"></script>
+    <script src="/js/common.js"></script>
+</head>
+<script>
+
+    $(document).ready(function(){
+
+        var width = $(window).width();
+        var height = $(document).height();
+
+        var ajaxAddr = 'http://4seasonpension.com/testajax'
+        //var ajaxAddr = 'http://localhost/testajax'
+
+        $('.calendar_btn').click(function(e){
+
+            $('.backLayer').width(width);
+            $('.backLayer').height(height);
+            $('.backLayer').fadeTo("slow", 0.8);
+
+            var popup = $(this).data('action') == 'cancel' ? $('#popup_cancel_reserv') : $('#popup_reserv');
+            popup.css("top", (height-popup.height())/2);
+            popup.css("left", (width-popup.width())/2);
+            popup.fadeIn(500);
+
+            if($(this).data('action') == 'cancel') {
+                $('.reserv_name').text( $(this).data('name') );
+                $('.reserv_tel').text( $(this).data('tel') );
+            }
+
+            var room_num = $(this).data('room');
+
+            var sTitle = $(this).data('date') + " " + getPensionName( room_num ) + "실";
+            popup.data('sn', $(this).data('sn'));
+            $('.reserv_date').text(sTitle);
+            $('.reserv_date').data("date", $(this).data('date'));
+            $('.reserv_date').data("room", $(this).data('room'));
+        })
+
+        $('.reserv_submit').click(function(e) {
+            //e.preventDefault();
+
+            var param = {};
+            param.name = $('input[name="name"]').val();
+            if(param.name == '') {
+                alert('이름을 최소 1자 이상 입력해주세요.');
+                return;
+            }
+
+            param.tel = $('input[name="tel"]').val();
+            if(param.tel == '' || phonenumber(param.tel) == false) {
+                alert('잘못 된 전화번호 형식입니다.');
+                return;
+            }
+
+            param.reserv_date = $('.reserv_date').data("date");
+            param.room_num = $('.reserv_date').data("room");
+
+            $.ajax({
+                url: ajaxAddr,
+                dataType: 'json',
+                type: 'post',
+                data: {'action':'reserv', 'data': JSON.stringify(param) },
+                success: function(ret) {
+                    location.reload();
+                }
+            });
+
+        })
+
+        $('.reserv_cancel_submit').click(function(e){
+            //e.preventDefault();
+            var popup = $('#popup_cancel_reserv');
+            $.ajax({
+                url: ajaxAddr,
+                dataType: 'json',
+                type: 'post',
+                data: {'action':'cancel', 'sn': popup.data('sn')},
+                success: function(ret) {
+                    location.reload();
+                }
+            });
+        })
+
+        $('.reserv_cancel').click(function(e){
+            $('#popup_cancel_reserv').fadeOut(300);
+            $('#popup_reserv').fadeOut(300);
+            $('.backLayer').fadeOut(1000);
+        })
+
+        $('input[name="btn_login"]').click(function(e){
+            alert(ajaxAddr)
+            $.ajax({
+                url: ajaxAddr,
+                dataType: 'json',
+                type: 'post',
+                data: {'action':'login', 'pw': $('input[name="login_password"]').val() },
+                success: function(ret) {
+                    location.reload();
+                }
+            });
+        })
+    });
+</script>
+<body>
+<% if(user_name=="") {%>
+<script>
+    $('#admin_main_article').hide();
+</script>
+<div id="admin_login_page">
+    <input type="password" name="login_password"/><input type="button" name="btn_login" value="관리자 로그인 하기"/>
+</div>
+<%}%>
+<div id="admin_main_article">
+    <div id="admin_wrapper">
+        <div id="admin">관리자 페이지</div>
+        <br/>
+    </div>
+    <script>
+        <% if(user_name) { %>
+        $('#admin_main_article').show();
+        var mon = <%- mon%>
+        var year = <%- year%>
+        var data = <%- JSON.stringify(reserv_info) %>
+                calendar(mon,year,data);
+        <%}%>
+    </script>
+    <div id="admin_detail">
+    </div>
+</div>
+<div class="backLayer"></div>
+<div id="popup_reserv">
+    <div id="admin_wrapper">
+        <div>
+            <table style="width: 100%; height: 800px; border: 1px solid #000; text-align: center;">
+                <tr>
+                    <td colspan="2">숙박 예약 설정</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="reserv_date" ></td>
+                </tr>
+                <tr><!-- 성함 -->
+                    <td>고객명</td><td><input name='name' type="text" style="width: 90%; height: 50%" /></td>
+                </tr>
+                <tr><!-- 성함 -->
+                    <td>전화번호</td><td><input name='tel' type="text" style="width: 90%; height: 50%"/></td>
+                </tr>
+                <tr><!-- 성함 -->
+                    <td width="50%"><input type="button" value="예약" style="width: 70%; height: 60%" class="reserv_submit" /></td><td><input type="button" value="취소" style="width: 70%; height: 60%" class="reserv_cancel"/></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="popup_cancel_reserv">
+    <div id="admin_wrapper">
+        <div>
+            <table style="width: 100%; height: 800px; border: 1px solid #000; text-align: center;">
+                <tr>
+                    <td colspan="2">숙박 예약 설정</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="reserv_date" ></td>
+                </tr>
+                <tr><!-- 성함 -->
+                    <td>고객명</td><td class="reserv_name"></td>
+                </tr>
+                <tr><!-- 성함 -->
+                    <td>전화번호</td><td class="reserv_tel"></td>
+                </tr>
+                <tr><!-- 성함 -->
+                    <td width="50%"><input type="button" value="예약취소" style="width: 70%; height: 60%" class="reserv_cancel_submit" /></td><td><input type="button" value="돌아가기" style="width: 70%; height: 60%" class="reserv_cancel"/></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

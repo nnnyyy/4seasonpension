@@ -1,0 +1,10 @@
+table.cal_calendar{padding:0px;margin:0 auto;width: 80%; height:auto;}
+table.cal_calendar th{border:1px solid #c0c0c0;background-color:#e0e0e0;width:36px;font-family:돋움;font-size:18px;padding:3px;}
+table.cal_calendar td{border:1px solid #e0e0e0;background-color:#ffffff;text-align:center;width:20px;height:25px;font-family:tahoma;font-size:18px;padding:3px;}
+.cal_d_weeks{height:120px;}
+.cal_today{color:#ff0000;font-weight:bold;}
+.cal_days_bef_aft{color:#5a779e;}
+.cal_d_row{height:120px;}
+input[type=button] {
+    font-size: 40px;
+}
